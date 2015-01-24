@@ -55,6 +55,7 @@ class UserDAO:
         try:
             # XXX HW 2.3 Students Work Here
             # you will need to retrieve right document from the users collection.
+            user = self.users.find_one({'_id': username})
             print "This space intentionally left blank."
         except:
             print "Unable to query database for user"
@@ -63,7 +64,7 @@ class UserDAO:
             print "User not in database"
             return None
 
-        salt = user['password'].split(',')[1]
+        salt = user['password'].split(',')
 
         if user['password'] != self.make_pw_hash(password, salt):
             print "user password is not a match"
@@ -85,6 +86,7 @@ class UserDAO:
             # XXX HW 2.3 Students work here
             # You need to insert the user into the users collection.
             # Don't over think this one, it's a straight forward insert.
+            self.users.insert(user)
 
             print "This space intentionally left blank."
 
